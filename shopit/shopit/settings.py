@@ -31,6 +31,11 @@ STATIC_ROOT = os.path.join(BASE_DIR,'static/')
 
 # Application definition
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'anthontytobynho@gmail.com'
+EMAIL_HOST_PASSWORD = 'oluwatobi'
+EMAIL_PORT = 587
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

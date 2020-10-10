@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.conf import settings
 from orders.models import Order
 import braintree
-
+from .task import payment_completed
 # Create your views here.
 gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
 
@@ -22,6 +22,8 @@ def payment_process(request):
     if results.is_success:
       order.paid = True
       order.braintree_id = results.transaction.id
+      #launch asynchronous task
+      payment_completed.delay(order.id)
       order.save()
       return redirect('payment:done')
     else:
